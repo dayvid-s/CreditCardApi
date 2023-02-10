@@ -51,8 +51,15 @@ def create_credit_card():
     cvv= credit_card['cvv']
     brand= credit_card['brand']
 
-    command= f'insert into creditCards (exp_date, holder, number, cvv, brand)VALUES ("{exp_date}", "{holder}",{number}, {cvv}, "{brand}")'
+    try : datetime.strptime(exp_date, '%Y-%m-%d') 
+    except :
+        return make_response(jsonify( message='invalid date, try YYYY-MM-DD'))
+    if datetime.now() > datetime.strptime(exp_date,'%Y-%m-%d'):
+        return make_response(jsonify( message="Your card expedition date cannot be less than today's date."))
 
+
+    command= f'insert into creditCards (exp_date, holder, number, cvv, brand)VALUES ("{exp_date}", "{holder}",{number}, {cvv}, "{brand}")'
+    
     my_cursor.execute(command)
     sql_connection.commit()
 
@@ -64,9 +71,6 @@ def create_credit_card():
     )
 
 
-
-
 app.run (port =5000, host='localhost', debug=True)
-
 my_cursor.close()
 sql_connection.close()
