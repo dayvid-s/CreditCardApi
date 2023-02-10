@@ -72,10 +72,13 @@ def create_credit_card():    #function are much big. must be refatored soon.
     if len(holder) < 3:
         return make_response(jsonify( message="The holder must have more than 2 characters."))
 
+
     if len(str(cvv)) < 3  or  len(str(cvv))> 4 :
         return make_response(
             jsonify(
                 message=f"The cvv field must have between 3 and 4 numbers, you have informed:{(len(str(cvv)))}"))
+    if isinstance(cvv, int) == False :
+        return make_response(jsonify(message=f"The cvv field must be a number, without quotes"))
     
     
 
