@@ -2,6 +2,8 @@ import mysql.connector
 from flask import Flask, jsonify, make_response, request
 from datetime import datetime
 import calendar
+# from creditcard import CreditCard
+
 
 
 app = Flask(__name__)
@@ -65,18 +67,23 @@ def create_credit_card():    #function are much big. must be refatored soon.
     
     last_day_of_the_month= calendar.monthrange(year,month )[1] #This position of array returns how much days the month has
     exp_date = date_object.replace(day=last_day_of_the_month)
+    
+    
     if len(holder) < 3:
         return make_response(jsonify( message="The holder must have more than 2 characters."))
 
-    
+    if len(str(cvv)) < 3  or  len(str(cvv))> 4 :
+        return make_response(
+            jsonify(
+                message=f"The cvv field must have between 3 and 4 numbers, you have informed:{(len(str(cvv)))}"))
     
     
 
     #After going through all validations, now it's time to send the credit card to database.
     command= f'insert into creditCards (exp_date, holder, number, cvv, brand)VALUES ("{exp_date}", "{holder}",{number}, {cvv}, "{brand}")'
 
-    my_cursor.execute(command)
-    sql_connection.commit()
+    # my_cursor.execute(command)
+    # sql_connection.commit()
 
     return make_response(
         jsonify(
