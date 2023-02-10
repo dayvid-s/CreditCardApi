@@ -65,7 +65,8 @@ def create_credit_card():    #function are much big. must be refatored soon.
     
     last_day_of_the_month= calendar.monthrange(year,month )[1] #This position of array returns how much days the month has
     exp_date = date_object.replace(day=last_day_of_the_month)
-
+    if len(holder) < 3:
+        return make_response(jsonify( message="The holder must have more than 2 characters."))
 
     
     
