@@ -16,7 +16,7 @@ sql_connection = mysql.connector.connect(
 
 my_cursor = sql_connection.cursor() # all sql commands must be inside of this guy, and before the close function
 
-@app.route('/credit-cards',) # req of type get by default.
+@app.route('/api/v1/credit-cards',) # req of type get by default.
 def retrieve_all_credit_cards():  #this function will take all credit cards from database, and return to api rest
     my_cursor = sql_connection.cursor() 
     my_cursor.execute('SELECT * FROM creditCards')
@@ -42,7 +42,7 @@ def retrieve_all_credit_cards():  #this function will take all credit cards from
 
 
 
-@app.route('/credit-cards',methods = ['POST'])
+@app.route('/api/v1/credit-cards',methods = ['POST'])
 def create_credit_card():    #function are much big. must be refatored soon.
     my_cursor = sql_connection.cursor() 
     credit_card= request.json
