@@ -5,7 +5,7 @@ import calendar
 from flask_httpauth import HTTPTokenAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
-# from creditcard import CreditCard
+import onetimepad
 
 
 
@@ -86,7 +86,7 @@ def retrieve_all_credit_cards():  #this function will take all credit cards from
 
 
 @app.route('/api/v1/credit-cards',methods = ['POST']) # this must be refatored with blueprints
-@token_auth.verify_token
+@token_auth.login_required
 def create_credit_card():    #function are much big. must be refatored soon.
     my_cursor = sql_connection.cursor() 
     credit_card= request.json
@@ -122,7 +122,10 @@ def create_credit_card():    #function are much big. must be refatored soon.
     if isinstance(cvv, int) == False :
         return make_response(jsonify(message=f"The cvv field must be a number, without quotes"),400)
     
-    
+
+    number = onetimepad.encrypt(f"{number}", 'creditcardapiKey6032')
+    # card_number_decripted = onetimepad.decrypt(F"{number}", 'creditcardapiKey6032')
+
 
     #After going through all validations, now it's time to send the credit card to database.
     command= f'insert into creditCards (exp_date, holder, number, cvv, brand)VALUES ("{exp_date}", "{holder}",{number}, {cvv}, "{brand}")'
