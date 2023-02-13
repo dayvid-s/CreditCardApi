@@ -6,6 +6,7 @@ from flask_httpauth import HTTPTokenAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import onetimepad
+# from creditcard import CreditCard
 
 
 
@@ -122,21 +123,45 @@ def create_credit_card():    #function are much big. must be refatored soon.
     if isinstance(cvv, int) == False :
         return make_response(jsonify(message=f"The cvv field must be a number, without quotes"),400)
     
+    # card_number = "4539578763621486"  # this is a Visa card
+
+    # card_number = "4539578763621486"  # this is a Visa card
+    # cc = CreditCard(card_number)
+    # cc.is_valid()  # returns True
+    # cc.get_brand()  # returns Visa
 
     number = onetimepad.encrypt(f"{number}", 'creditcardapiKey6032')
     # card_number_decripted = onetimepad.decrypt(F"{number}", 'creditcardapiKey6032')
 
 
     #After going through all validations, now it's time to send the credit card to database.
-    command= f'insert into creditCards (exp_date, holder, number, cvv, brand)VALUES ("{exp_date}", "{holder}",{number}, {cvv}, "{brand}")'
+    command= f'insert into creditCards (exp_date,holder,number,cvv, brand)VALUES ("{exp_date}","{holder}","{number}",{cvv},"{brand}")'
 
-    # my_cursor.execute(command)
-    # sql_connection.commit()
+    my_cursor.execute(command)
+    sql_connection.commit()
 
     return make_response(
         jsonify(
             message= 'Credit card registered with successful!',
             card = credit_card
+        )
+    )
+
+
+
+
+@app.route('/api/v1/credit-cards/<int:id>',methods = ['DELETE']) 
+@token_auth.login_required
+def delete_credit_card(id):    
+
+    command= f'DELETE FROM creditCards WHERE idcreditcards ="{id}"'
+
+    my_cursor.execute(command)
+    sql_connection.commit()
+
+    return make_response(
+        jsonify(
+            message= 'Credit card deleted with successful!',
         )
     )
 
