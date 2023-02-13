@@ -61,7 +61,7 @@ def login():
 @token_auth.login_required
 def get_credit_card_by_id(id):    
 
-    command= f'SELECT idcreditcards, exp_date, holder, number,cvv, brand  FROM creditCards WHERE idcreditcards = 35'
+    command= f'SELECT idcreditcards, exp_date, holder, number,cvv, brand  FROM creditCards WHERE idcreditcards = {id}'
 
     my_cursor.execute(command)
     credit_card = my_cursor.fetchall()
