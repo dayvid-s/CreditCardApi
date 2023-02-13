@@ -57,12 +57,42 @@ def login():
     return jsonify({"token": encoded_jwt})
 
 
+@app.route('/api/v1/credit-cards/<int:id>',methods = ['GET']) 
+@token_auth.login_required
+def get_credit_card_by_id(id):    
+
+    command= f'SELECT idcreditcards, exp_date, holder, number,cvv, brand  FROM creditCards WHERE idcreditcards = 35'
+
+    my_cursor.execute(command)
+    credit_card = my_cursor.fetchall()
+    credit_card_formated = list()
+
+    for c in credit_card:
+        credit_card_formated.append({
+            'idcreditcards': c[0],
+            'exp_date': c[1],
+            'holder':c[2],
+            'number':c[3],
+            'cvv': c[4],
+            'brand':c[5]
+        })
+
+    return make_response(
+        jsonify(
+            card= credit_card_formated
+        )
+    )
 
 
-@app.route('/api/v1/credit-cards') # req of type get by default.
+
+
+
+
+
+@app.route('/api/v1/credit-cards', methods=['GET'])
 @token_auth.login_required
 def retrieve_all_credit_cards():  #this function will take all credit cards from database, and return to api rest
-    my_cursor = sql_connection.cursor() 
+    
     my_cursor.execute('SELECT * FROM creditCards')
     credit_cards = my_cursor.fetchall()
     credit_cards_formated = list()
@@ -89,7 +119,6 @@ def retrieve_all_credit_cards():  #this function will take all credit cards from
 @app.route('/api/v1/credit-cards',methods = ['POST']) # this must be refatored with blueprints
 @token_auth.login_required
 def create_credit_card():    #function are much big. must be refatored soon.
-    my_cursor = sql_connection.cursor() 
     credit_card= request.json
 
     exp_date= credit_card['exp_date']
