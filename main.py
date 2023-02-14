@@ -61,7 +61,7 @@ def login():
 @token_auth.login_required
 def get_credit_card_by_id(id):    
 
-    command= f'SELECT idcreditcards, exp_date, holder, number,cvv, brand  FROM creditCards WHERE idcreditcards = {id}'
+    command= f'SELECT idcreditcard, exp_date, holder, number,cvv, brand  FROM creditCards WHERE idcreditcard = {id}'
 
     my_cursor.execute(command)
     credit_card = my_cursor.fetchall()
@@ -69,7 +69,7 @@ def get_credit_card_by_id(id):
 
     for c in credit_card:
         credit_card_formated.append({
-            'idcreditcards': c[0],
+            'idcreditcard': c[0],
             'exp_date': c[1],
             'holder':c[2],
             'number':c[3],
@@ -99,7 +99,7 @@ def retrieve_all_credit_cards():  #this function will take all credit cards from
 
     for card in credit_cards:
         credit_cards_formated.append({
-            'idcreditcards': card[0],
+            'idcreditcard': card[0],
             'exp_date': card[1],
             'holder':card[2],
             'number':card[3],
@@ -183,7 +183,7 @@ def create_credit_card():    #function are much big. must be refatored soon.
 @token_auth.login_required
 def delete_credit_card(id):    
 
-    command= f'DELETE FROM creditCards WHERE idcreditcards ="{id}"'
+    command= f'DELETE FROM creditCards WHERE idcreditcard ="{id}"'
 
     my_cursor.execute(command)
     sql_connection.commit()
