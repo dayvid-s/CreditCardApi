@@ -14,15 +14,15 @@ You can create your user, but if you do that, change the settings you have in th
 After the above settings, run the following commands to create the main table in the database:
 
 CREATE TABLE `credit-card-bd`.`creditcardss` (
-  `idcreditcards` INT NOT NULL,
-  `exp_datel` DATE NOT NULL,
+  `idcreditcard` INT NOT NULL,
+  `exp_date` DATE NOT NULL,
   `holder` VARCHAR(50) NOT NULL,
   `cvv` INT NULL,
   `number` VARCHAR(500) NOT NULL,
   `cvv` INT NOT NULL,
   `brand` VARCHAR(60) NULL,
-  PRIMARY KEY (`idcreditcards`),
-  UNIQUE INDEX `idcreditcards_UNIQUE` (`idcreditcards` ASC) VISIBLE,
+  PRIMARY KEY (`idcreditcard`),
+  UNIQUE INDEX `idcreditcards_UNIQUE` (`idcreditcard` ASC) VISIBLE,
   UNIQUE INDEX `number_UNIQUE` (`number` ASC) VISIBLE);
   
   
@@ -108,6 +108,27 @@ Run the command:
 
 ```
 pip install onetimepad
+```
+
+
+### ⚡ Python-creditcard
+
+
+#### What is?
+
+A simple credit cards validation library in Python.
+
+
+#### What is it for?
+
+We are going to use it to check if the card numbers are valid, and the brands of the cards themselves.
+
+#### How to install?
+
+Run the command:
+
+```
+pip install git+https://github.com/maistodos/python-creditcard.git@main
 ```
 
 
