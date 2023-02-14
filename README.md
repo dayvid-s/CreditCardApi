@@ -44,7 +44,7 @@ Flask will be responsible for our routes, authenticating their own. Framework is
 
 #### How to install?
 
-run the command :
+Run the command :
 
 ```
 $ pip install Flask
@@ -63,14 +63,14 @@ We recommend that you use PIP to install "MySQL Connector"
 
 #### How to install?
 
-run the command:
+Run the command:
 
 ```
 pip install mysql-connector-python
 ```
 
 
-### JWT TOKEN⚡
+### ⚡ JWT TOKEN
 
 #### What is?
 
@@ -82,7 +82,7 @@ Let's use it to apply authorization to routes.
 
 #### How to install?
 
-run the command:
+Run the command:
 
 ```
 $ pip install jwt
@@ -132,4 +132,6 @@ pip install git+https://github.com/maistodos/python-creditcard.git@main
 ```
 
 
-🍰  All steps completed. Now just test!
+
+
+🦋  All steps completed. Now just test!
