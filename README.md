@@ -135,3 +135,27 @@ pip install git+https://github.com/maistodos/python-creditcard.git@main
 
 
 🦋  All steps completed. Now just test!
+
+
+## ⚡ Getting started
+
+
+First, accesses the login route by placing the username and password in the body of the request, which is available, put them in JSON format.
+
+By doing this, you will receive a token, and use it to be authorized to access the other routes.
+
+
+
+### How to add a credit card?
+with your token saved and present in the authorization part, enter the route:
+http://localhost:5000/api/v1/credit-cards
+and test by registering this credit card:
+
+
+{       <br/> 
+     "exp_date": "2025-08",         <br/> 
+     "holder": "Jose Alves",          <br/> 
+     "number": "4539578763621486",    <br/> 
+     "cvv": 181           <br/> 
+}    
+
