@@ -125,7 +125,6 @@ def create_credit_card():    #function are much big. must be refatored soon.
     holder= credit_card['holder']
     number= credit_card['number']
     cvv= credit_card['cvv']
-    brand= credit_card['brand']
 
     try : datetime.strptime(exp_date, '%Y-%m') 
     except :
@@ -152,12 +151,11 @@ def create_credit_card():    #function are much big. must be refatored soon.
     if isinstance(cvv, int) == False :
         return make_response(jsonify(message=f"The cvv field must be a number, without quotes"),400)
     
-    # card_number = "4539578763621486"  # this is a Visa card
+    
+    #Warning:it was not possible to verify if the number is valid, 
+    #or what type of card brand it is, because it was not possible to use the creditcardAPI library
 
-    # card_number = "4539578763621486"  # this is a Visa card
-    # cc = CreditCard(card_number)
-    # cc.is_valid()  # returns True
-    # cc.get_brand()  # returns Visa
+    brand= 'visa'
 
     number = onetimepad.encrypt(f"{number}", 'creditcardapiKey6032')
     # card_number_decripted = onetimepad.decrypt(F"{number}", 'creditcardapiKey6032')
